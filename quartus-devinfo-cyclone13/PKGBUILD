@@ -1,0 +1,21 @@
+pkgname=quartus-devinfo-cyclone13
+pkgver=13.0.1.232
+pkgrel=1
+verdir=13.0
+pkgdesc="Quartus II 13.0 - devinfo files for cyclone"
+arch=('x86_64')
+license=('custom')
+depends=('quartus-ii13')
+source=(
+	"https://github.com/topwuther/archlinux-quartus/releases/download/releases/cyclone-${pkgver}.qdz"
+)
+
+prepare() {
+    cd "${srcdir}"
+}
+
+package() {
+	mkdir -p "${pkgdir}/opt/intelFPGA/${verdir}/"
+	mv "quartus" "${pkgdir}/opt/intelFPGA/${verdir}/quartus"
+}
+sha256sums=('9b349e732b7d197348c38b6190c639e455c27398090c62fed3b9cc80948dd930')

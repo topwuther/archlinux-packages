@@ -1,0 +1,82 @@
+#!/bin/sh
+QUARTUS_DIR=/opt/intelFPGA
+check_root() {
+  if [ "$(id -u)" -ne 0 ]; then
+    printf 'This script must be run as root'
+    exit 1
+  fi
+}
+
+check_param() {
+  if [ "$1" != "$2" ]; then
+    printf 'Wrong parameter count'
+    exit 2
+  fi
+}
+
+do_status(){
+  for i in "$QUARTUS_DIR"/* ; do
+    if [ -d "$i" ];then
+      ver=${i#$QUARTUS_DIR/}
+      if [ "$ver" != "default" ];then
+        printf "%s\n" "$ver"
+      fi
+    fi
+  done
+}
+
+do_unset(){
+  unlink "$QUARTUS_DIR/default"
+}
+
+do_set(){
+  if [ -d "/opt/intelFPGA/$1" ];then
+	rm /opt/intelFPGA/default
+    ln -sf "/opt/intelFPGA/$1" "/opt/intelFPGA/default"
+  else
+    printf "%s is not a valid Quartus environment path" "$1"
+  fi
+}
+
+do_get(){
+  env_path=$(readlink -e $QUARTUS_DIR/default)
+  if [ "$env_path" != "/dev/null" ]; then
+    printf "%s\n" "${env_path#$QUARTUS_DIR/}"
+  else
+    printf "\n"
+  fi
+}
+
+usage(){
+  printf "%s <COMMAND>" "$(basename "$0")"
+  printf "\nCOMMAND:\n"
+  printf "\tstatus\t\tList installed Quartus environments and enabled one\n"
+  printf "\tget\t\tReturn the short name of the Quartus environment set as default\n"
+  printf "\tset <QUARTUS>\tForce <QUARTUS> as default\n"
+  printf "\tunset\t\tUnset current default Quartus environment\n"
+}
+
+case $1 in
+"help" | '--help' | '-h' | '')
+  usage
+  ;;
+"get")
+  do_get
+  ;;
+"set")
+  check_root
+  check_param $# 2
+  do_set "$2"
+  ;;
+"unset")
+  check_root
+  do_unset
+  ;;
+"status")
+  do_status
+  ;;
+"*")
+  echo "$(basename "$0"): unknown option '$#'"
+  exit 1
+  ;;
+esac

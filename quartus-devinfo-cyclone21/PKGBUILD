@@ -1,0 +1,21 @@
+pkgname=quartus-devinfo-cyclone21
+pkgver=21.1.0.842
+pkgrel=1
+verdir=21.1
+pkgdesc="Quartus Prime Programmer - devinfo files for cyclone"
+arch=('x86_64')
+license=('custom')
+depends=('quartus-standard-programmer21')
+source=(
+	"https://github.com/topwuther/archlinux-quartus/releases/download/releases/cyclone-${pkgver}.qdz"
+)
+
+prepare() {
+    cd "${srcdir}"
+}
+
+package() {
+	mkdir -p "${pkgdir}/opt/intelFPGA/${verdir}/"
+	mv "quartus" "${pkgdir}/opt/intelFPGA/${verdir}/quartus"
+}
+sha256sums=('d24ddf38fd2b2a0e9a2295484636f4d9c43f9b5eb74de49d1d8145868689282c')
