@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Quartus
+Comment=Quartus Programmer and Tools
+Exec=quartus
+Terminal=false
+Type=Application
+Categories=Development;IDE;

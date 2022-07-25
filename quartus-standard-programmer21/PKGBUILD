@@ -1,0 +1,41 @@
+pkgname=quartus-standard-programmer21
+pkgver=21.1.0.842
+pkgrel=1
+verdir=21.1
+pkgdesc="Quartus Prime Programmer and Tools "
+arch=('x86_64')
+license=('custom')
+makedepends=('gdb')
+depends=('quartus-runtime-common')
+source=(
+	"license.dat"
+    "ehex"
+    "patch.sh"
+	"https://github.com/topwuther/archlinux-packages/releases/download/releases/QuartusSetup-${pkgver}-linux.run.tar.gz.000"
+	"https://github.com/topwuther/archlinux-packages/releases/download/releases/QuartusSetup-${pkgver}-linux.run.tar.gz.001"
+)
+
+noextract=(
+	'QuartusSetup-21.1.0.842-linux.run.tar.gz.000'
+	'QuartusSetup-21.1.0.842-linux.run.tar.gz.001'
+)
+prepare() {
+    cd "${srcdir}"
+    cat QuartusSetup-21.1.0.842-linux.run.tar.gz.* | tar -zxf -
+    chmod a+x "QuartusSetup-${pkgver}-linux.run"
+    chmod a+x "patch.sh"
+    chmod a+x "ehex"
+}
+
+package() {
+    ./QuartusSetup-${pkgver}-linux.run --accept_eula 1 --mode unattended --installdir "${pkgdir}/opt/intelFPGA/${verdir}"
+    rm -rf "${pkgdir}/opt/intelFPGA/${verdir}/logs"
+    rm -rf "${pkgdir}/opt/intelFPGA/${verdir}/uninstall"
+    install -D -m644 license.dat "${pkgdir}/opt/intelFPGA/${verdir}/license.dat"
+    ./patch.sh ${pkgdir}/opt/intelFPGA/${verdir}
+}
+sha256sums=('871b296c1ab5d3b15ad3ae586d0ca6ce572ba46f35bbb8a6c0a2d4393515f1f5'
+            '0ce1bc32ed5ecd6870c80c0c2f8b64285b15aac598a0e8f841ec03bdc2b63a01'
+            'e3e13d4ce48527a9fa72c932ab5515ccb86df220cbe2f042c0662d69bfe70042'
+            '4ca9770e064c5dae56c09b60c4709fe30a50291faa129c0c4de4b37229bf7450'
+            'f3c05377b8c854cbe3b3dfdba880f6f76681305284cecdd8204a875d1bc40633')

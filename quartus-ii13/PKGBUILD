@@ -1,0 +1,34 @@
+pkgname=quartus-ii13
+pkgver=13.0.1.232
+pkgrel=1
+verdir=13.0
+pkgdesc="Quartus II 13.0 Programmer and Tools "
+arch=('x86_64')
+license=('custom')
+makedepends=('gdb')
+depends=('lib32-libpng12' 'quartus-runtime-common')
+source=(
+	"license.dat"
+	"ehex"
+    "patch.sh"
+	"https://github.com/topwuther/archlinux-packages/releases/download/releases/QuartusSetup-${pkgver}.run"
+)
+
+prepare() {
+    cd "${srcdir}"
+    chmod a+x "QuartusSetup-${pkgver}.run"
+    chmod a+x "patch.sh"
+    chmod a+x "ehex"
+}
+
+package() {
+    ./QuartusSetup-${pkgver}.run --mode unattended --installdir "${pkgdir}/opt/intelFPGA/${verdir}"
+    rm -rf "${pkgdir}/opt/intelFPGA/${verdir}/logs"
+    rm -rf "${pkgdir}/opt/intelFPGA/${verdir}/uninstall"
+    install -D -m644 license.dat "${pkgdir}/opt/intelFPGA/${verdir}/license.dat"
+    ./patch.sh ${pkgdir}/opt/intelFPGA/${verdir}
+}
+sha256sums=('34fcf54802110476eaa6912e33ecce6002c53c986e3fe420da73575d49733215'
+            '0ce1bc32ed5ecd6870c80c0c2f8b64285b15aac598a0e8f841ec03bdc2b63a01'
+            '55e38e5f216add7954bb0db9187d67e390643a3ece0652e9f18f718897426670'
+            '3f39a3fd8e25b6d499746c7ea1fc3fb7cda533a3815790a5ed3fcff072cd2686')

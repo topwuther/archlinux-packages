@@ -1,0 +1,34 @@
+pkgname=quartus-runtime-common
+pkgver=1.1
+pkgrel=2
+pkgdesc="Common files for Quartus Runtime Environments"
+arch=('x86_64')
+license=('MIT')
+
+source=("archlinux-quartus"
+		"quartus.sh"
+		"quartus.csh"
+		"51-usbblaster.rules"
+		"quartus.fish"
+		"quartus.desktop")
+
+prepare() {
+    cd "${srcdir}"
+}
+
+package() {
+	install -D -m755 archlinux-quartus "${pkgdir}/usr/bin/archlinux-quartus"
+	mkdir -p ${pkgdir}/opt/intelFPGA/
+	ln -sf /dev/null ${pkgdir}/opt/intelFPGA/default
+    install -D -m644 quartus.sh "${pkgdir}/etc/profile.d/quartus.sh"
+    install -D -m644 quartus.csh "${pkgdir}/etc/profile.d/quartus.csh"
+    install -D -m644 51-usbblaster.rules "${pkgdir}/etc/udev/rules.d/51-usbblaster.rules"
+    install -D -m644 quartus.fish "${pkgdir}/usr/share/fish/vendor_conf.d/quartus.fish"
+	install -D -m644 quartus.desktop "${pkgdir}/usr/share/applications/quartus.desktop"
+}
+sha256sums=('c6400e30907695f2860586ebdfb14009b9e3906c1e07fbf29603f38c66bf5f52'
+            '4970299f7d374d3f4da6c06b0639eab49347afd1eeb8c77a2ad8ef8c5137d729'
+            'd0cf8164de80b81245901328cd69bb93eaf1df4de51b81814f9c1bddc71310a1'
+            '84948db18de26b1832890ce996424149cf7e2f107a8c24bc4791fbef83c0dfed'
+            '69533c12ffb297c0e26803212bbc5d8e6175196eba5dd9c9ba4242b71ede6a15'
+            'a71ce65a31e9f1affe0cdf6d89e90ad68bad0f267c26e701247dbcbf04e3d1eb')
