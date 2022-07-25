@@ -2,7 +2,7 @@ pkgname=quartus-runtime-common
 pkgver=1.1
 pkgrel=2
 pkgdesc="Common files for Quartus Runtime Environments"
-arch=('x86_64')
+arch=('any')
 license=('MIT')
 
 source=("archlinux-quartus"

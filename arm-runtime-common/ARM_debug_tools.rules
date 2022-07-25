@@ -1,0 +1,92 @@
+
+SUBSYSTEM!="usb_device", ACTION!="add", GOTO="ARM_debug_tools_rules_end"
+
+# RealView-ICE
+ATTRS{idVendor}=="0d28", ATTRS{idProduct}=="0001", MODE="0666"
+
+# RealView Trace 2 (beta)
+ATTRS{idVendor}=="0d28", ATTRS{idProduct}=="f013", MODE="0666"
+
+# RealView Trace 2
+ATTRS{idVendor}=="0d28", ATTRS{idProduct}=="0100", MODE="0666"
+
+# DSTREAM
+ATTRS{idVendor}=="0d28", ATTRS{idProduct}=="0003", MODE="0666"
+
+# DSTREAM Trace
+ATTRS{idVendor}=="0d28", ATTRS{idProduct}=="0103", MODE="0666"
+
+# DSTREAM-ST Network & Trace
+ATTRS{idVendor}=="0d28", ATTRS{idProduct}=="0011", MODE="0666"
+
+# RDDI DAP
+ATTRS{product}=="*CMSIS-DAP*", MODE="0666"
+
+# Keil ULINK Pro
+ATTRS{idVendor}=="c251", ATTRS{idProduct}=="2730", MODE="0666"
+
+# Keil ULINK Pro D
+ATTRS{idVendor}=="c251", ATTRS{idProduct}=="2740", MODE="0666"
+
+# Keil ULINK Plus
+ATTRS{idVendor}=="c251", ATTRS{idProduct}=="2750", MODE="0666"
+
+# Arm Morello USB Debug
+ATTRS{idVendor}=="0d28", ATTRS{idProduct}=="0300", MODE="0666"
+
+# FTDI FT2232C/D/L, FT2232HL/Q
+ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", MODE="0666"
+
+# FTDI FT4232HL/Q
+ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6011", MODE="0666"
+
+# Olimex OpenOCD JTAG
+ATTRS{idVendor}=="15ba", ATTRS{idProduct}=="0003", MODE="0666"
+
+# Olimex OpenOCD JTAG TINY
+ATTRS{idVendor}=="15ba", ATTRS{idProduct}=="0004", MODE="0666"
+
+# Olimex ARM-USB-TINY-H JTAG interface
+ATTRS{idVendor}=="15ba", ATTRS{idProduct}=="002a", MODE="0666"
+
+# Olimex ARM-USB-OCD-H JTAG+RS232
+ATTRS{idVendor}=="15ba", ATTRS{idProduct}=="002b", MODE="0666"
+
+# stm32 discovery boards, with onboard st/linkv1 ie, STM32VL.
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3744", \
+    MODE="660", GROUP="plugdev", TAG+="uaccess", \
+    SYMLINK+="stlinkv1_%n"
+
+# stm32 discovery boards, with onboard st/linkv2 ie, STM32L, STM32F4.
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3748", \
+    MODE="660", GROUP="plugdev", TAG+="uaccess", \
+    SYMLINK+="stlinkv2_%n"
+
+# stm32 nucleo boards, with onboard st/linkv2-1 ie, STM32F0, STM32F4.
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", \
+    MODE="660", GROUP="plugdev", TAG+="uaccess", \
+    SYMLINK+="stlinkv2-1_%n"
+
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3752", \
+    MODE="660", GROUP="plugdev", TAG+="uaccess", \
+    SYMLINK+="stlinkv2-1_%n"
+
+# stlink-v3 boards (standalone and embedded) in usbloader mode and standard (debug) mode
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374d", \
+    MODE="660", GROUP="plugdev", TAG+="uaccess", \
+    SYMLINK+="stlinkv3loader_%n"
+
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374e", \
+    MODE="660", GROUP="plugdev", TAG+="uaccess", \
+    SYMLINK+="stlinkv3_%n"
+
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374f", \
+    MODE="660", GROUP="plugdev", TAG+="uaccess", \
+    SYMLINK+="stlinkv3_%n"
+
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3753", \
+    MODE="660", GROUP="plugdev", TAG+="uaccess", \
+    SYMLINK+="stlinkv3_%n"
+
+LABEL="ARM_debug_tools_rules_end"
+

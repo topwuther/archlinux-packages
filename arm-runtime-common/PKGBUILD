@@ -1,0 +1,33 @@
+pkgname=arm-runtime-common
+pkgver=1.0
+pkgrel=1
+pkgdesc="Common files for Arm Runtime Environments"
+arch=('any')
+license=('custom')
+source=(
+	"ARM_debug_tools.rules"
+	"arm-runtime-common.csh"
+	"arm-runtime-common.sh"
+	"arm-runtime-common.fish"
+	"ds_license.lic"
+	"gold.elmap"
+)
+
+prepare() {
+    cd "${srcdir}"
+}
+
+package() {
+    install -D -m644 ARM_debug_tools.rules "${pkgdir}/etc/udev/rules.d/ARM_debug_tools.rules"
+	install -D -m644 ds_license.lic "${pkgdir}/opt/arm/licenses/ds_license.lic"
+	install -D -m644 gold.elmap "${pkgdir}/opt/arm/licenses/gold.elmap"
+	install -D -m755 arm-runtime-common.csh "${pkgdir}/etc/profile.d/arm-runtime-common.csh"
+	install -D -m755 arm-runtime-common.sh "${pkgdir}/etc/profile.d/arm-runtime-common.sh"
+	install -D -m755 arm-runtime-common.fish "${pkgdir}/usr/share/fish/vendor_conf.d/arm-runtime-common.fish"
+}
+sha256sums=('6298ae2c3c9c0ee467c82ce37b7ce5ea9444dc7bc50952be0002df9a64edaa91'
+            'c1df267e75fbdc4c98c17a35ba9be724cec9e4a2e3888188f73acf3d795908d6'
+            '47eb4c3a9d779c77c297ec103d6a78f16f42e20c2de37ef37efb165de1b882d7'
+            '23c0d9f26f305464f4c8d061cfaf6e3aa5e283e8537fc967264334147559e318'
+            'd4bbc0437a438b0406468067c9402174af62e3433135d5ee009d9c6650bd3821'
+            '345d6c451b4588acb8cde7fcfd2bbcc69aa36a27ff94fff56eafab3387769778')
